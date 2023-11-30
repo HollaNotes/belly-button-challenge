@@ -68,13 +68,7 @@ function hbar(sample) {
         let bar_data = [trace_hbar];  
         // Apply a title to the layout
         let layout1 = {
-            title: {
-                text: "Horizontal Bar Chart"},
-            xaxis: {
-                title: {
-                    text: "" 
-                }
-            }    
+            title: 'Horizontal Bar'    
         };  
         // Render the plot to the div tag with id "plot"
         Plotly.newPlot("bar", bar_data, layout1);})};
@@ -152,7 +146,7 @@ function metadata(sample) {
 
 
 // Call updatePlotly() when a change takes place to the DOM
-d3.selectAll("#selDataset").on("change", updatePlotly);
+//d3.selectAll("#selDataset").on("change", updatePlotly);
 
 function updatePlotly(newData) {
     console.log("New Value: ", newData);
