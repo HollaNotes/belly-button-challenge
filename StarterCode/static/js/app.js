@@ -38,7 +38,7 @@ function init() {
 
 // HORIZONTAL BAR CHART //////////////////////////////////////////
 function hbar(sample) {
-    d3.json(url).then(function(data){
+    d3.json(url).then(function(data) {
         // Make sample variable
         let data_samples = data.samples;
             //console.log("Data Samples: ", data_samples);
@@ -49,29 +49,35 @@ function hbar(sample) {
         let first_id = chosenIds[0];
             //console.log("First Id: ", first_id);
         // Slice and reverse to get the top 10 sample values, OTU IDs and OTU Labels
-        let sample_values = first_id.sample_values.slice(0,10).reverse();
+        let sample_values = first_id.sample_values;
             //console.log("Sample Values: ", sample_values);
-        let otu_ids = first_id.otu_ids.slice(0,10).reverse();
+        let otu_ids = first_id.otu_ids;
             //console.log("OTU Ids: ", otu_ids);
-        let otu_labels = first_id.otu_labels.slice(0,10).reverse();
+        let otu_labels = first_id.otu_labels;
             //console.log("OTU Labels: ", otu_labels);
    
-    // Set trace for horizontal bar chart        
-    let trace_hbar = {
-        x: sample_values,
-        y: otu_ids.map(object => `OTU ${object}`).slice(0,10),
-        text: otu_labels,
-        type: "bar",
-        orientation: "h"
-    };  
-    // Data array
-    let bar_data = [trace_hbar];  
-    // Apply a title to the layout
-    let layout1 = {
-        title: "Horizontal Bar Chart",
-    };  
-    // Render the plot to the div tag with id "plot"
-    Plotly.newPlot("bar", bar_data, layout1);})};
+        // Set trace for horizontal bar chart        
+        let trace_hbar = {
+            x: sample_values.slice(0,10).reverse(),
+            y: otu_ids.map(object => `OTU ${object}`).slice(0,10).reverse(),
+            text: otu_labels.slice(0,10).reverse(),
+            type: "bar",
+            orientation: "h"
+        };  
+        // Data array
+        let bar_data = [trace_hbar];  
+        // Apply a title to the layout
+        let layout1 = {
+            title: {
+                text: "Horizontal Bar Chart"},
+            xaxis: {
+                title: {
+                    text: "" 
+                }
+            }    
+        };  
+        // Render the plot to the div tag with id "plot"
+        Plotly.newPlot("bar", bar_data, layout1);})};
 
 // BUBBLE CHART///////////////////////////////////////////////////
 function bub_char(sample) {
@@ -93,29 +99,30 @@ function bub_char(sample) {
         let otu_labels = first_id.otu_labels;
             //console.log("OTU Labels: ", otu_labels);
     
-    // Set trace for bubble chart
-    let trace_bub_char = {
-        x: otu_ids,
-        y: sample_values,
-        text: otu_labels,
-        mode: 'markers',
-        marker: {
-            color: otu_ids,
-            opacity: [1, 0.8, 0.6, 0.4],
-            size: sample_values
-        }    
-    };  
-    // Data array
-    let data2 = [trace_bub_char];
-    // Apply a title to the layout
-    let layout2 = {
-        title: 'Bubble Chart',
-        showlegend: false,
-        height: 600,
-        width: 1200
-    };  
-    // Render the plot to the div tag with id "plot"
-    Plotly.newPlot("bubble", data2, layout2);
+        // Set trace for bubble chart
+        let trace_bub_char = {
+            x: otu_ids,
+            y: sample_values,
+            text: otu_labels,
+            mode: 'markers',
+            marker: {
+                color: otu_ids,
+                opacity: [1, 0.8, 0.6, 0.4],
+                size: sample_values
+            }    
+        };  
+        // Data array
+        let data2 = [trace_bub_char];
+        // Apply a title to the layout
+        let layout2 = {
+            title: 'Bubble Chart',
+            showlegend: true,
+            height: 600,
+            width: 1200
+            
+        };  
+        // Render the plot to the div tag with id "plot"
+        Plotly.newPlot("bubble", data2, layout2);
 })};
 
 
